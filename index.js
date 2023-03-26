@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
+const jwt = require('jsonwebtoken')
 const app = express()
 app.use(cors())
 require('dotenv').config()
@@ -58,6 +59,15 @@ app.get('/getlistbyid', (req, res) => {
     })
 
 })
+app.get('/getupdates', (req, res) => {
+    collection.findOne({
+        type: 'manager'
+    }).then(result => {
+        res.send(result.updates)
+    })
+
+})
+
 
 app.post('/addfood', (req, res) => {
     console.log("adding food ")
